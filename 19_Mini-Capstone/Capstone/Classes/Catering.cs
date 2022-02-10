@@ -23,7 +23,10 @@ namespace Capstone.Classes
 
         public void DisplayMenu()
         {
-
+            foreach (CateringItem item in items)
+            {
+                Console.WriteLine($"{item.ProductCode.PadRight(17)}{item.ProductName.PadRight(25)}{item.Quantity.ToString().PadRight(10)}{item.Price:C}");
+            }
         }
 
 

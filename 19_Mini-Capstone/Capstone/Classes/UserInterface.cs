@@ -54,8 +54,14 @@ namespace Capstone.Classes
 
         public void CateringMenu()
         {
-            Console.WriteLine("Product Code     Discription     Qty     Price");
+            string code = "Product Code";
+            string description = "Description";
+            string quantity = "Qty";
+            string price = "Price";
+            Console.WriteLine($"{code.PadRight(17)}{description.PadRight(25)}{quantity.PadRight(10)}{price}");
             catering.DisplayMenu();
+            Console.WriteLine();
+            Console.WriteLine();
         }
 
         public void OrderMenu()
