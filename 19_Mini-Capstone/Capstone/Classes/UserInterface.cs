@@ -15,6 +15,7 @@ namespace Capstone.Classes
         // in any other class.
 
         private Catering catering = new Catering();
+        private Money money = new Money();
 
         public void RunInterface()
         {
@@ -77,7 +78,7 @@ namespace Capstone.Classes
                 switch (input)
                 {
                     case "1":
-                        //AddMoney();
+                        AddMoney();
                         break;
                     case "2":
                         //SelectProducts();
@@ -92,6 +93,47 @@ namespace Capstone.Classes
 
                 }
             }
+        }
+
+        public void AddMoney()
+        {
+            bool done = false;
+            while (!done)
+            {
+                Console.WriteLine("Please the denomination of money you'd like to add (1, 5, 10, etc.)");
+                Console.WriteLine("Or press Q to return to previous menu.");
+                string cash = Console.ReadLine();
+                switch (cash)
+                {
+                    case "1":
+                    case "5":
+                    case "10":
+                    case "20":
+                    case "50":
+                    case "100":
+                        if (money.AddMoney(cash))
+                        {
+                            Console.WriteLine($"Your current balance is: {money.Balance:C}");
+                            Console.WriteLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine($"The maximum balance is $1500. Your current balance is: {money.Balance:C}");
+                            Console.WriteLine();
+
+                        }
+                        break;
+                    case "q":
+                    case "Q":
+                        done = true;
+                        break;
+                    default:
+                        Console.WriteLine("Please enter a valid denomination.");
+                        break;
+
+                }
+            }
+            OrderMenu();
         }
     }
 }
