@@ -16,15 +16,9 @@ namespace Capstone.Classes
 
         private Catering catering = new Catering();
 
-        public FileAccess fileAccess = new FileAccess();
-
-        private List<CateringItem> catItems = new List<CateringItem>();
-
-        
-
-        fileAccess.FileRead();
         public void RunInterface()
         {
+            catering.GetMenu();
             bool done = false;
             while (!done)
             {
@@ -51,7 +45,6 @@ namespace Capstone.Classes
             }
 
         }
-
         public void MainMenu()
         {
             Console.WriteLine("(1) Display Catering Items");
@@ -61,12 +54,38 @@ namespace Capstone.Classes
 
         public void CateringMenu()
         {
-
+            Console.WriteLine("Product Code     Discription     Qty     Price");
+            catering.DisplayMenu();
         }
 
         public void OrderMenu()
         {
+            Console.WriteLine("(1) Add Money");
+            Console.WriteLine("(2) Select Products");
+            Console.WriteLine("(3) Complete Transaction");
+            bool done = false;
+            while (!done)
+            {
+                string input = Console.ReadLine();
 
+                switch (input)
+                {
+                    case "1":
+                        //AddMoney();
+                        break;
+                    case "2":
+                        //SelectProducts();
+                        break;
+                    case "3":
+                        //CompleteTransaction();
+                        done = true;
+                        break;
+                    default:
+                        Console.WriteLine("Please enter a valid choice.");
+                        break;
+
+                }
+            }
         }
     }
 }

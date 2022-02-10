@@ -7,12 +7,11 @@ namespace Capstone.Classes
 {
     public class FileAccess
     {
-        Catering catering = new Catering();
-        // all files for this application should in this directory
+         // all files for this application should in this directory
         // you will likley need to create it on your computer
-        public CateringItem[] FileRead()
+        string filePath = @"C:\Catering\cateringsystem.csv";
+        public List<CateringItem> FileRead()
         {
-            string filePath = @"C:\Catering\cateringsystem.csv";
             List<CateringItem> cateringItems = new List<CateringItem>();
             try 
             {
@@ -37,7 +36,7 @@ namespace Capstone.Classes
             {
                 Console.WriteLine("Error reading the file" + ex.Message);
             }
-            return cateringItems.ToArray();
+            return cateringItems;
         }
         
         
