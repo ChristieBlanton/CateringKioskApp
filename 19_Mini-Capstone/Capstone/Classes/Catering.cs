@@ -14,7 +14,7 @@ namespace Capstone.Classes
 
         private FileAccess fileAccess = new FileAccess();
 
-        
+
         public Catering()
         {
             List<CateringItem> CI = fileAccess.FileRead();
@@ -64,30 +64,74 @@ namespace Capstone.Classes
         {
             foreach (CateringItem item in items)
             {
-                if (item.ProductCode == inputItem)
+                if (item.ProductCode == inputItem.ToUpper())
                 {
-                    if (item.Quantity > inputQuantity && (item.Price * inputQuantity) <= balance)
+                    if (item.Quantity >= inputQuantity && (item.Price * inputQuantity) <= balance)
                     {
-                        
+
                         ShoppingCart test = new ShoppingCart(item.ProductType, item.ProductCode,
                             item.ProductName, item.Price, inputQuantity);
                         shoppingCart.Add(test);
                         item.Quantity -= inputQuantity;
+                        fileAccess.LogWriter($"{inputQuantity} {item.ProductName} {item.ProductCode} ${item.Price * inputQuantity} ${balance - (item.Price * inputQuantity)}");
                         return item.Price * inputQuantity;
                     }
+                    else if (item.Quantity == 0)
+                    {
+                        //sold out
+                        return -3;
+                    }
+                    else if (inputQuantity > item.Quantity)
+                    {
+                        //insufficient stock
+                        return -4;
+                    }
+                    else if (balance < inputQuantity * item.Price)
+                    {
+                        //insufficient funds
+                        return -5;
+                    }
+                }
+
+            }
+            return -2;
+        }
+
+        public void Receipt()
+        {
+            decimal total = 0;
+
+            foreach (ShoppingCart item in shoppingCart)
+            {
+                total += (item.BuyingQuantity * item.Price);
+                if (item.ProductType.Equals("A"))
+                {
+                    Console.WriteLine($"{item.BuyingQuantity.ToString().PadRight(5)} Appetizer    {item.ProductName.PadRight(25)} {item.Price.ToString("C").PadLeft(10)} {(item.BuyingQuantity * item.Price).ToString("C").PadLeft(10)}   You might need extra plates.");
+                }
+                else if (item.ProductType.Equals("B"))
+                {
+                    Console.WriteLine($"{item.BuyingQuantity.ToString().PadRight(5)} Beverage     {item.ProductName.PadRight(25)} {item.Price.ToString("C").PadLeft(10)} {(item.BuyingQuantity * item.Price).ToString("C").PadLeft(10)}   Don't forget ice.");
+                }
+                else if (item.ProductType.Equals("D"))
+                {
+                    Console.WriteLine($"{item.BuyingQuantity.ToString().PadRight(5)} Dessert      {item.ProductName.PadRight(25)} {item.Price.ToString("C").PadLeft(10)} {(item.BuyingQuantity * item.Price).ToString("C").PadLeft(10)}   Coffee goes with dessert.");
+                }
+                else if (item.ProductType.Equals("E"))
+                {
+                    Console.WriteLine($"{item.BuyingQuantity.ToString().PadRight(5)} Entree       {item.ProductName.PadRight(25)} {item.Price.ToString("C").PadLeft(10)} {(item.BuyingQuantity * item.Price).ToString("C").PadLeft(10)}   Did you remember dessert?");
                 }
             }
-            return -1.0m;
+            Console.WriteLine();
+            Console.WriteLine($"TOTAL: ${total}");
         }
 
-
-
-
-
-
-        }
 
 
 
     }
+}
+
+
+
+
 

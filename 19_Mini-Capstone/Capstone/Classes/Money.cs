@@ -33,6 +33,14 @@ namespace Capstone
             Balance -= amount;
         }
 
+        //public Dictionary<string, int> MakeChange(decimal balance)
+        //{
+        //    if (balance >= 50)
+        //    {
+
+        //    }
+            
+        //}
        
     }
 

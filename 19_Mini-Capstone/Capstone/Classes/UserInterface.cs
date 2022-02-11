@@ -86,7 +86,7 @@ namespace Capstone.Classes
 
                         break;
                     case "3":
-                        //CompleteTransaction();
+                        CompleteTransaction();
                         done = true;
                         break;
                     default:
@@ -139,7 +139,7 @@ namespace Capstone.Classes
         }
         public void SelectProducts()
         {
-            catering.DisplayMenu();
+            CateringMenu();
 
             Console.WriteLine();
             Console.WriteLine("Please select the item code: ");
@@ -150,18 +150,46 @@ namespace Capstone.Classes
 
             int inputQuantity = int.Parse(Console.ReadLine());
 
-            if(catering.ShoppingCart(inputItem, inputQuantity, money.Balance) == -1.0m)
-            {
-                Console.WriteLine("Unable to process order.");
-            }
-            else
-            {
-                money.SubtractMoney(catering.ShoppingCart(inputItem, inputQuantity, money.Balance));
-            }
-            
-               
+            decimal result = catering.ShoppingCart(inputItem, inputQuantity, money.Balance);
 
+            switch (result)
+            {
+                case -1:
+                    Console.WriteLine("An error occured with processing. Please try again.");
+                    Console.WriteLine();
+                    break;
+                case -2:
+                    Console.WriteLine("Please select a valid code.");
+                    Console.WriteLine();
+                    break;
+                case -3:
+                    Console.WriteLine("This item is SOLD OUT.");
+                    Console.WriteLine();
+                    break;
+                case -4:
+                    Console.WriteLine("There is insufficient stock for the quantity requested.");
+                    Console.WriteLine();
+                    break;
+                case -5:
+                    Console.WriteLine("There are insufficient funds for the requested purchase.");
+                    Console.WriteLine();
+                    break;
+                default:
+                    Console.WriteLine("Item was added to the cart.");
+                    Console.WriteLine();
+                    money.SubtractMoney(result);
+                    break;
+            }
             OrderMenu();
+        }
+
+        public void CompleteTransaction()
+        {
+            catering.Receipt();
+
+            Dictionary<string, int> change = money.MakeChange(money.Balance);
+
+
         }
     }
 }
