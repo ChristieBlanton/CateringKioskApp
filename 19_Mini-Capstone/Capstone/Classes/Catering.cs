@@ -14,7 +14,7 @@ namespace Capstone.Classes
 
         private FileAccess fileAccess = new FileAccess();
 
-        Money money = new Money();
+        
         public Catering()
         {
             List<CateringItem> CI = fileAccess.FileRead();
@@ -60,13 +60,13 @@ namespace Capstone.Classes
             }
         }
 
-        public decimal ShoppingCart(string inputItem, int inputQuantity)
+        public decimal ShoppingCart(string inputItem, int inputQuantity, decimal balance)
         {
             foreach (CateringItem item in items)
             {
                 if (item.ProductCode == inputItem)
                 {
-                    if (item.Quantity > inputQuantity && (item.Price * inputQuantity) <= money.Balance)
+                    if (item.Quantity > inputQuantity && (item.Price * inputQuantity) <= balance)
                     {
                         
                         ShoppingCart test = new ShoppingCart(item.ProductType, item.ProductCode,

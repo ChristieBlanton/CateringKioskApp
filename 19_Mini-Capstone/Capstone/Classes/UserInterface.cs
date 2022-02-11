@@ -150,13 +150,13 @@ namespace Capstone.Classes
 
             int inputQuantity = int.Parse(Console.ReadLine());
 
-            if(catering.ShoppingCart(inputItem, inputQuantity) == -1.0m)
+            if(catering.ShoppingCart(inputItem, inputQuantity, money.Balance) == -1.0m)
             {
                 Console.WriteLine("Unable to process order.");
             }
             else
             {
-                money.SubtractMoney(catering.ShoppingCart(inputItem, inputQuantity));
+                money.SubtractMoney(catering.ShoppingCart(inputItem, inputQuantity, money.Balance));
             }
             
                
