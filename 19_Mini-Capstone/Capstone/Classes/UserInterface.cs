@@ -19,7 +19,7 @@ namespace Capstone.Classes
 
         public void RunInterface()
         {
-            catering.GetMenu();
+
             bool done = false;
             while (!done)
             {
@@ -70,6 +70,7 @@ namespace Capstone.Classes
             Console.WriteLine("(1) Add Money");
             Console.WriteLine("(2) Select Products");
             Console.WriteLine("(3) Complete Transaction");
+            Console.WriteLine("Current Account Balance: " + money.Balance);
             bool done = false;
             while (!done)
             {
@@ -81,7 +82,8 @@ namespace Capstone.Classes
                         AddMoney();
                         break;
                     case "2":
-                        //SelectProducts();
+                        SelectProducts();
+
                         break;
                     case "3":
                         //CompleteTransaction();
@@ -133,6 +135,23 @@ namespace Capstone.Classes
 
                 }
             }
+            OrderMenu();
+        }
+        public void SelectProducts()
+        {
+            catering.DisplayMenu();
+
+            Console.WriteLine();
+            Console.WriteLine("Please select the item code: ");
+
+            string inputItem = Console.ReadLine();
+
+            Console.WriteLine("Please select a quantity: ");
+
+            int inputQuantity = int.Parse(Console.ReadLine());
+
+            catering.ShoppingCart(inputItem, inputQuantity);
+
             OrderMenu();
         }
     }

@@ -38,7 +38,21 @@ namespace Capstone.Classes
             }
             return cateringItems;
         }
-        
+   
+        public void LogWriter(string line)
+        {
+            try
+            {
+                using(StreamWriter sw = new StreamWriter(@"C:\Catering\Log.txt", true))
+                {
+                    sw.WriteLine( DateTime.Now +" "+ line);
+                }
+            }
+            catch(IOException ex)
+            {
+                Console.WriteLine("Error writing file" + ex.Message);
+            }
+        }
         
         
     
