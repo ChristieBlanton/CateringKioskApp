@@ -60,7 +60,7 @@ namespace Capstone.Classes
             }
         }
 
-        public void ShoppingCart(string inputItem, int inputQuantity)
+        public decimal ShoppingCart(string inputItem, int inputQuantity)
         {
             foreach (CateringItem item in items)
             {
@@ -68,15 +68,16 @@ namespace Capstone.Classes
                 {
                     if (item.Quantity > inputQuantity && (item.Price * inputQuantity) <= money.Balance)
                     {
-                        money.SubtractMoney((item.Price * inputQuantity));
+                        
                         ShoppingCart test = new ShoppingCart(item.ProductType, item.ProductCode,
                             item.ProductName, item.Price, inputQuantity);
                         shoppingCart.Add(test);
                         item.Quantity -= inputQuantity;
+                        return item.Price * inputQuantity;
                     }
                 }
             }
-            return;
+            return -1.0m;
         }
 
 
