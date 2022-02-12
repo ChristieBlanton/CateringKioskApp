@@ -88,6 +88,7 @@ namespace Capstone.Classes
                     case "3":
                         CompleteTransaction();
                         done = true;
+                        Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine("Please enter a valid choice.");
@@ -115,12 +116,12 @@ namespace Capstone.Classes
                     case "100":
                         if (money.AddMoney(cash))
                         {
-                            Console.WriteLine($"Your current balance is: {money.Balance:C}");
+                            Console.WriteLine($"Your current balance is: {money.Balance.ToString("C")}");
                             Console.WriteLine();
                         }
                         else
                         {
-                            Console.WriteLine($"The maximum balance is $1500. Your current balance is: {money.Balance:C}");
+                            Console.WriteLine($"The maximum balance is $1500. Your current balance is: {money.Balance.ToString("C")}");
                             Console.WriteLine();
 
                         }
@@ -186,10 +187,21 @@ namespace Capstone.Classes
         public void CompleteTransaction()
         {
             catering.Receipt();
+            Console.WriteLine();
 
             Dictionary<string, int> change = money.MakeChange(money.Balance);
-
-
+            money.SubtractMoney(money.Balance);
+            Console.Write("You received ");
+            foreach (KeyValuePair<string, int> kvp in change)
+            {
+                if (kvp.Value > 0)
+                {
+                    Console.Write($"({kvp.Value}) {kvp.Key}   ");
+                }
+            }
+            Console.WriteLine(" in change");
+            Console.WriteLine();
+            RunInterface();
         }
     }
 }

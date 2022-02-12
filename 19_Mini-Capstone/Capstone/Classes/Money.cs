@@ -8,7 +8,7 @@ namespace Capstone
     
     public class Money
     {
-        public decimal Balance { get; private set; } 
+        public decimal Balance { get; private set; } = 0.00M;
 
         FileAccess file = new FileAccess();
 
@@ -22,7 +22,7 @@ namespace Capstone
             {
               
                 Balance += int.Parse(cash);
-                string line = $"Add Money: ${cash}.00 ${Balance}";
+                string line = $"Add Money: ${cash} {Balance.ToString("C")}";
                 file.LogWriter(line);
                 return true;
             }
@@ -36,6 +36,7 @@ namespace Capstone
         public Dictionary<string, int> MakeChange(decimal balance)
         {
             Dictionary<string, int> change = new Dictionary<string, int>();
+            file.LogWriter($"GIVE CHANGE: {balance.ToString("C")} $0.00");
             string totalBalance = balance.ToString();
             string[] currency = totalBalance.Split(".");
             int coins = int.Parse(currency[1]);

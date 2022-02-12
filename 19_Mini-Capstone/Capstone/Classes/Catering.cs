@@ -56,7 +56,14 @@ namespace Capstone.Classes
         {
             foreach (CateringItem item in items)
             {
-                Console.WriteLine($"{item.ProductCode.PadRight(17)}{item.ProductName.PadRight(25)}{item.Quantity.ToString().PadRight(10)}{item.Price:C}");
+                if (item.Quantity == 0)
+                {
+                    Console.WriteLine($"{item.ProductCode.PadRight(17)}{item.ProductName.PadRight(25)}SOLD OUT  {item.Price:C}");
+                }
+                else
+                {
+                    Console.WriteLine($"{item.ProductCode.PadRight(17)}{item.ProductName.PadRight(25)}{item.Quantity.ToString().PadRight(10)}{item.Price:C}");
+                }
             }
         }
 
