@@ -38,7 +38,7 @@ namespace Capstone.Classes
             }
             return cateringItems;
         }
-   
+    
         public void LogWriter(string line)
         {
             try

@@ -67,10 +67,12 @@ namespace Capstone.Classes
 
         public void OrderMenu()
         {
+            Console.WriteLine();
             Console.WriteLine("(1) Add Money");
             Console.WriteLine("(2) Select Products");
             Console.WriteLine("(3) Complete Transaction");
             Console.WriteLine("Current Account Balance: " + money.Balance);
+            Console.WriteLine();
             bool done = false;
             while (!done)
             {
@@ -146,13 +148,22 @@ namespace Capstone.Classes
             Console.WriteLine("Please select the item code: ");
 
             string inputItem = Console.ReadLine();
-
+            int inputQuantity = 0;
             Console.WriteLine("Please select a quantity: ");
-
-            int inputQuantity = int.Parse(Console.ReadLine());
-
+            try
+            {
+                 inputQuantity = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine("Please enter a valid quantity." + ex.Message);
+                Console.WriteLine();
+                SelectProducts();
+            }
+           
+            
             decimal result = catering.ShoppingCart(inputItem, inputQuantity, money.Balance);
-
+            
             switch (result)
             {
                 case -1:
